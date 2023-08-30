@@ -54,3 +54,18 @@ You can use the following utility class:
 ![](https://img2020.cnblogs.com/blog/1928212/202003/1928212-20200307105440221-1646636271.png)
 
 For the code, please visit
+
+ [httpclient实现https请求 (HttpClient Implementation for HTTPS Requests)](https://blog.csdn.net/Cloud_July/article/details/73301805).
+
+##### Solution 3 (Addressing PKIX Issues in Maven and More)
+![](https://img2020.cnblogs.com/blog/1928212/202003/1928212-20200307105818338-1066320005.png)
+
+In the specified position, add `-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true`.
+
+##### Solution 4 (Importing Certificates)
+Many bloggers have used outdated syntax. I recommend checking the most recent import syntax using `keytool -help` when importing.
+Access cmd in administrator mode and navigate to the `jre\lib\security` directory of your Java JDK.
+Mine is located at `C:\Program Files\Java\jdk1.8.0_221\jre\lib\security`.
+For instructions on obtaining certificates, refer to other bloggers; it's quite straightforward.
+Use the following command to import the certificate:
+```keytool -importcert -noprompt -trustcacerts -alias xxx (desired alias) -file "C:\Program Files\Java\jdk1.8.0_221\jre\lib\security\xxx.cer (file path)" -keystore "C:\Program Files\Java\jdk1.8.0_221\jre\lib\security\cacerts" -storepass changeit```

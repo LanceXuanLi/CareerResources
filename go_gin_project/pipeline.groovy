@@ -32,7 +32,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Go build
-                dir("${env.WORKSPACE}/go_gin_project"){
+                dir("${env.WORKSPACE}/go_gin_project/cmd"){
                    sh 'go build -o myapp'
                 }
             }

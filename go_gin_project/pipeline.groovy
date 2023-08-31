@@ -10,7 +10,7 @@ pipeline {
                 checkout scm
             }
         }
-        stage('Test') {
+        stage('compile') {
                     steps {
                         // Run Go tests
                         dir("${env.WORKSPACE}/go_gin_project"){

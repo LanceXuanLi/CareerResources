@@ -10,21 +10,31 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Test') {
+                    steps {
+                        // Run Go tests
+                        dir("${env.WORKSPACE}/go_gin_project"){
+                            sh 'go mod tidy'
+                        }
 
+                    }
+                }
         stage('Test') {
             steps {
                 // Run Go tests
-                sh 'cd go_gin_project/'
-                sh 'ls'
-                sh 'go test ./...'
+                dir("${env.WORKSPACE}/go_gin_project"){
+                   sh 'go test ./...'
+                }
+
             }
         }
 
         stage('Build') {
             steps {
                 // Run Go build
-                sh 'cd go_gin_project/'
-                sh 'go build -o myapp'
+                dir("${env.WORKSPACE}/go_gin_project"){
+                   sh 'go build -o myapp'
+                }
             }
         }
     }

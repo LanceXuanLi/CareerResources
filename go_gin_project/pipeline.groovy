@@ -37,9 +37,16 @@ pipeline {
                 }
             }
         }
+//         stage('deploy') {
+//                     steps {
+//                         script {
+//                             // scp file and ssh on server, run app
+//                         }
+//                     }
+//         }
     }
 
-    post {
+        post {
         always {
             // Clean up artifacts or perform any other necessary actions
             deleteDir()

@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        go '1.21.0'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -12,6 +14,8 @@ pipeline {
         stage('Test') {
             steps {
                 // Run Go tests
+                sh 'cd go_gin_project/'
+                sh 'ls'
                 sh 'go test ./...'
             }
         }
@@ -19,14 +23,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Go build
+                sh 'cd go_gin_project/'
                 sh 'go build -o myapp'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Deploy the application (replace with your deployment command)
-                sh 'YOUR_DEPLOY_COMMAND'
             }
         }
     }

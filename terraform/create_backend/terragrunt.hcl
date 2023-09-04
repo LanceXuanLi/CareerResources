@@ -1,7 +1,3 @@
-locals {
-  aws_region = "ap-southeast-2"
-}
-
 terraform {
   # Deploy version v0.0.3 in stage
   source = "git::git@github.com:LanceXuanLi/searchingJob.git//terraform/backend_moudle?ref=master"
@@ -12,13 +8,14 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 provider "aws" {
-  region = "${local.aws_region}"
+  region = "${local.backend_region}"
 }
 EOF
 }
 
-inputs = merge(
-  local.account_vars.locals,
-  local.region_vars.locals,
-  local.environment_vars.locals,
-)
+inputs = {
+  backend_bucket = "backendtest0904"
+  backend_key  = "simple-web"
+  backend_region = "ap-southeast-2"
+  lock_table = "backendtest0904"
+}

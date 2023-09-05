@@ -1,3 +1,6 @@
+locals  {
+  backend_region = "ap-southeast-2"
+}
 terraform {
   # Deploy version v0.0.3 in stage
   source = "git::git@github.com:LanceXuanLi/searchingJob.git//terraform/backend_moudle?ref=master"
@@ -16,6 +19,6 @@ EOF
 inputs = {
   backend_bucket = "backendtest0904"
   backend_key  = "simple-web"
-  backend_region = "ap-southeast-2"
+  backend_region = local.backend_region
   lock_table = "backendtest0904"
 }

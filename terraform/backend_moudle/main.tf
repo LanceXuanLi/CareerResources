@@ -1,5 +1,14 @@
+resource "random_integer" "server" {
+  min = 1
+  max = 10000
+  keepers = {
+    # Generate a new integer each time we switch to a new listener ARN
+    listener_arn = var.ami_id
+  }
+}
+
 resource "aws_s3_bucket" "backend" {
-  bucket = var.backend_bucket
+  bucket = "${var.backend_bucket}-${random_integer.server.id}"
   object_lock_enabled = true
 }
 
@@ -21,7 +30,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "backend" {
 }
 
 resource "aws_dynamodb_table" "backend" {
-  name           = var.lock_table
+  name           = "${var.lock_table}-${random_integer.server.id}"
   read_capacity  = 5
   write_capacity = 5
   hash_key       = "LockID"
@@ -34,8 +43,8 @@ resource "aws_dynamodb_table" "backend" {
   }
 }
 
-resource "aws_iam_policy" "backend" {
-  name        = "${aws_s3_bucket.backend.id}_backend_policy"
+resource "aws_iam_policy" "bucket_backend" {
+  name        = "${aws_s3_bucket.backend.id}-backend-${random_integer.server.id}"
   path        = "/"
   description = "${aws_s3_bucket.backend.id}_backend_policy"
 
@@ -58,8 +67,8 @@ resource "aws_iam_policy" "backend" {
   })
 }
 
-resource "aws_iam_policy" "backend" {
-  name        = "${aws_dynamodb_table.backend.id}_backend_policy"
+resource "aws_iam_policy" "dynamodb_backend" {
+  name        = "${aws_dynamodb_table.backend.id}-dynamodb-backend-${random_integer.server.id}"
   path        = "/"
   description = "${aws_s3_bucket.backend.id}_backend_policy"
 

@@ -18,5 +18,6 @@ EOF
 
 inputs = {
   backend_bucket = "backendtest0905"
-  lock_table = "backendtest0904"
+  lock_table = "backendtest0905"
+  ami_id = "3321sa"
 }

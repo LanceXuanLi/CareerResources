@@ -17,8 +17,6 @@ EOF
 }
 
 inputs = {
-  backend_bucket = "backendtest0904"
-  backend_key  = "simple-web"
-  backend_region = local.backend_region
+  backend_bucket = "backendtest0905"
   lock_table = "backendtest0904"
 }

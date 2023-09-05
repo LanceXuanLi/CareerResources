@@ -52,7 +52,7 @@ resource "aws_iam_policy" "backend" {
       {
         "Effect": "Allow",
         "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-        "Resource": "arn:aws:s3:::${aws_s3_bucket.backend.id}/"
+        "Resource": "arn:aws:s3:::${aws_s3_bucket.backend.id}/tf_state"
       }
     ]
   })

@@ -6,6 +6,17 @@ terraform {
   source = "git::git@github.com:LanceXuanLi/searchingJob.git//terraform/backend_moudle?ref=master"
 }
 
+#remote_state {
+#  backend = "local"
+#  generate = {
+#    path      = "backend.tf"
+#    if_exists = "overwrite"
+#  }
+#  config = {
+#    path = "${get_terragrunt_dir()}/terraform.tfstate"
+#  }
+#}
+
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite_terragrunt"

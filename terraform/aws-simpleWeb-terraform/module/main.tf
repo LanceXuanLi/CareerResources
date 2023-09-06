@@ -1,5 +1,5 @@
 resource "aws_security_group" "hello-world" {
-  name        = "hello-world-sg"
+  name        = var.ec2-name
   description = "Security group for hello-world"
 
   ingress {

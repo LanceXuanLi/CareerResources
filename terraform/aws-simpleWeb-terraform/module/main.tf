@@ -32,7 +32,7 @@ resource "aws_instance" "hello-world" {
   security_groups = [aws_security_group.hello-world.name]
 
   tags = {
-    Name = "hello-worldInstance"
+    Name = var.ec2-tag
   }
 
   user_data = <<-EOF

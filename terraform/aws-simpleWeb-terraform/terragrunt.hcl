@@ -2,10 +2,12 @@ locals  {
   backend_region = "ap-southeast-2"
   backend_bucket = "backendtest0905-6116"
   dynamodb_name = "backendtest0905-6116"
-}
-terraform {
-  # Deploy version v0.0.3 in stage
-  source = "git::git@github.com:LanceXuanLi/searchingJob.git//terraform/aws-simpleWeb-terraform/module?ref=master"
+
+#  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+  region = local.region_vars.locals.region
+  account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+  account_id = local.account_vars.locals.aws_account_id
 }
 
 generate "backend" {
@@ -29,11 +31,8 @@ generate "provider" {
   if_exists = "overwrite_terragrunt"
   contents  = <<EOF
 provider "aws" {
-  region = "${local.backend_region}"
+  region = "${local.region}"
+  allowed_account_ids = ["${local.account_id}"]
 }
 EOF
-}
-
-inputs = {
-  ec2-name = "helloworldtest"
 }

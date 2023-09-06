@@ -36,5 +36,3 @@ provider "aws" {
 }
 EOF
 }
-
-inputs = merge()

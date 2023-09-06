@@ -9,5 +9,5 @@ include "envcommon" {
 
 inputs = {
   // qa tag
-  ec2-name = "prod"
+  ec2-name = "qa"
 }
